@@ -1,0 +1,15 @@
+actor: ApiTester
+modules:
+  enabled:
+    - Asserts
+    - REST:
+        url: 'http://saas.ru'
+        depends: Yii2
+    - Yii2:
+        part: [ORM, FIXTURE]
+        transaction: false
+        cleanup: false
+    - Db:
+        dsn: 'mysql:dbname=utmapi;host=localhost'
+        user: 'root'
+        password: ''

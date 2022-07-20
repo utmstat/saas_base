@@ -1,0 +1,15 @@
+actor: FrontTester
+modules:
+  enabled:
+    - Asserts
+    - REST
+    - PhpBrowser
+    - Yii2:
+        part: [ORM, FIXTURE]
+        transaction: false
+  config:
+    PhpBrowser:
+      url: 'http://saas.ru'
+    REST:
+      depends: PhpBrowser
+      url: 'http://saas.ru'

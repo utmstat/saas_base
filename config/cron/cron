@@ -1,0 +1,1 @@
+#* * * * * /usr/bin/php /var/www/data/utmstat/yii schedule/run --scheduleFile=@app/config/cron/schedule.php --interactive=100
