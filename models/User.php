@@ -15,19 +15,21 @@ use yii\web\IdentityInterface;
  * This is the model class for table "user".
  * @property int $id
  * @property int $is_active
- * @property int|null $is_defaulter
  * @property string $phone
  * @property string $email
  * @property string $password_hash
  * @property string $auth_key
  * @property string|null $first_name
  * @property string|null $last_name
- * @property float|null $balance_prev
- * @property float|null $balance
- * @property int|null $marker_id
- * @property int|null $customer_id
+ * @property string $balance_prev
+ * @property string $balance
+ * @property string $access_token
+ * @property string $recovery_token
+ * @property int $recovery_sent_at
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property Project[] $projects
  */
 class User extends AppModel implements IdentityInterface
 {
@@ -112,7 +114,7 @@ class User extends AppModel implements IdentityInterface
     public function rules()
     {
         return [
-            [['is_active', 'is_defaulter', 'marker_id', 'customer_id', 'created_at', 'updated_at'], 'integer'],
+            [['is_active', 'created_at', 'updated_at', 'recovery_sent_at',], 'integer'],
             [['phone', 'email', 'created_at', 'updated_at'], 'required'],
             [['email'], 'email'],
             [
@@ -130,6 +132,7 @@ class User extends AppModel implements IdentityInterface
             [['phone', 'email', 'first_name', 'last_name'], 'string', 'max' => 45],
             [['password_hash'], 'string', 'max' => 60],
             [['auth_key'], 'string', 'max' => 32],
+            [['recovery_token'], 'string', 'max' => 36],
         ];
     }
 
@@ -145,6 +148,7 @@ class User extends AppModel implements IdentityInterface
 
         if (!empty($this->password)) {
             $this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+            $this->recovery_token = null;
         }
 
         return true;
@@ -158,7 +162,6 @@ class User extends AppModel implements IdentityInterface
         return [
             'id' => 'ID',
             'is_active' => 'Is Active',
-            'is_defaulter' => 'Is Defaulter',
             'phone' => 'Phone',
             'email' => 'Email',
             'password' => 'Password',
@@ -168,10 +171,10 @@ class User extends AppModel implements IdentityInterface
             'last_name' => 'Last Name',
             'balance_prev' => 'Balance Prev',
             'balance' => 'Balance',
-            'marker_id' => 'Marker ID',
-            'customer_id' => 'Customer ID',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'recovery_token' => 'Recovery token',
+            'recovery_sent_at' => 'Recovery sent at',
         ];
     }
 
@@ -191,6 +194,15 @@ class User extends AppModel implements IdentityInterface
         return ArrayHelper::merge($scenarios, [
             'register' => ['email', 'password'],
         ]);
+    }
+
+    /**
+     * Gets query for [[Projects]].
+     * @return ActiveQuery
+     */
+    public function getProjects()
+    {
+        return $this->hasMany(Project::class, ['user_id' => 'id']);
     }
 
     /**
@@ -237,6 +249,6 @@ class User extends AppModel implements IdentityInterface
 
     public function initAfterRegister()
     {
-    
+        // init stuff
     }
 }

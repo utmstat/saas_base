@@ -12,7 +12,7 @@ $task = (int)$chunks[1];
 
 //switch ($task) {
 //    case 100:
-//        $schedule->command('incoming-webhook-buffer/clear')->everyMinute()->withoutOverlapping();
+//        $schedule->command('monitoring')->everyMinute()->withoutOverlapping();
 //        break;
 //
 //}

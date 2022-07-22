@@ -23,7 +23,8 @@
         "omnilight/yii2-scheduling": "^1.1",
         "kartik-v/yii2-widget-select2": "@dev",
         "supplyhog/yii2-clipboardjs": "dev-master",
-        "claviska/simpleimage": "*"
+        "claviska/simpleimage": "*",
+        "ramsey/uuid": "^4.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

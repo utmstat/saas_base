@@ -20,5 +20,6 @@ class IndexActionTest extends AppCodeceptionUnit
         $I = $this->tester;
         $I->sendPost('/');
         $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
     }
 }

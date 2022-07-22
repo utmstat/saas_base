@@ -12,10 +12,11 @@ use app\components\common\AppWidget;
 
 class JsVarsWidget extends AppWidget
 {
-
+    /**
+     * @inheritDoc
+     */
     public function run()
     {
         return $this->render('jsVarsWidget');
     }
-
 }

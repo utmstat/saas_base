@@ -26,7 +26,16 @@ class HttpClient
      */
     public static $lastResponse;
 
-    public static function send($url, $method = 'GET', $params = [], $headers = [])
+    /**
+     * Send request
+     * @param string $url
+     * @param string $method
+     * @param array $params
+     * @param array $headers
+     * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public static function send($url, $method = 'GET', array $params = [], array $headers = [])
     {
         if ($method === 'POST') {
 
@@ -72,6 +81,9 @@ class HttpClient
         return self::$lastResponse;
     }
 
+    /**
+     * @return Client
+     */
     private static function getClient()
     {
         return new Client();

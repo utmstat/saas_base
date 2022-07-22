@@ -8,6 +8,8 @@
 
 namespace app\components\common;
 
+use app\models\Project;
+use app\models\User;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -17,6 +19,12 @@ use yii\web\Controller;
  */
 class AppController extends Controller
 {
+    /** @var int|null */
+    protected $userId;
+
+    /** @var int|null */
+    protected $projectId;
+
     /**
      * {@inheritDoc}
      */
@@ -39,7 +47,7 @@ class AppController extends Controller
                         'allow' => true,
                         'roles' => ['?'],
                         'controllers' => ['site'],
-                        'actions' => ['login', 'register', 'index']
+                        'actions' => ['login', 'register', 'index', 'recovery', 'reset-password']
                     ],
                     [
                         'allow' => true,
@@ -59,6 +67,10 @@ class AppController extends Controller
      */
     public function init()
     {
+        $user = User::getCurrentUser();
+        $project = Project::getCurrentProject();
+        $this->projectId = $project->id ?? null;
+        $this->userId = $user->id ?? null;
         parent::init();
     }
 }

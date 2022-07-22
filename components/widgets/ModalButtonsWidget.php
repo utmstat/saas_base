@@ -7,11 +7,12 @@ use app\components\common\AppWidget;
 
 class ModalButtonsWidget extends AppWidget
 {
-    /**
-     * @var AppModel
-     */
+    /** @var AppModel */
     public $model;
 
+    /**
+     * @inheritDoc
+     */
     public function run()
     {
         $isUpdate = false;
@@ -24,5 +25,4 @@ class ModalButtonsWidget extends AppWidget
 
         return $this->render('modalButtonsWidget', ['isUpdate' => $isUpdate]);
     }
-
 }

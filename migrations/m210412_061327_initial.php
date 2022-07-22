@@ -24,6 +24,6 @@ class m210412_061327_initial extends Migration
     {
         echo "m210412_061327_initial cannot be reverted.\n";
 
-        return false;
+        return true;
     }
 }

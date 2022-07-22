@@ -16,16 +16,25 @@ use yii\console\Application;
 
 class AppHelper
 {
+    /**
+     * @return string
+     */
     public static function getProdHost()
     {
         return 'https://' . Yii::$app->request->hostName;
     }
 
+    /**
+     * @return string
+     */
     public static function getDevHost()
     {
         return 'http://' . Yii::$app->request->hostName;
     }
 
+    /**
+     * @return string
+     */
     public static function getFrontHost()
     {
         if (self::isProd()) {
@@ -35,6 +44,10 @@ class AppHelper
         return self::getDevHost();
     }
 
+    /**
+     * @param int $id
+     * @return bool
+     */
     public static function isUserDisabled($id = null)
     {
         if ($id) {
@@ -43,35 +56,29 @@ class AppHelper
             $model = User::getCurrentUser();
         }
 
-        $result = false;
-
-        if ($model) {
-            if (!$model->is_active) {
-                $result = true;
-            } else {
-                $result = false;
-            }
-
-        }
-
-        return $result;
+        return $model ? !$model->is_active : false;
     }
 
+    /**
+     * Check if user is admin
+     * @param int $id
+     * @return bool
+     */
     public static function isAdmin($id = null)
     {
-        if ($id) {
-            $model = User::findOne($id);
-        } else {
-            $model = User::getCurrentUser();
-        }
+        $model = $id ? User::findOne($id) : User::getCurrentUser();
+        return $model && in_array($model->email, Yii::$app->params['adminsEmail']);
+    }
 
-        if ($model) {
-            $result = in_array($model->email, Yii::$app->params['adminsEmail']);
-        } else {
-            $result = false;
-        }
-
-        return $result;
+    /**
+     * Check if user is support
+     * @param int $id
+     * @return bool
+     */
+    public static function isSupport($id = null)
+    {
+        $model = $id ? User::findOne($id) : User::getCurrentUser();
+        return $model && in_array($model->email, Yii::$app->params['supportEmail']);
     }
 
     public static function isCLI()
@@ -84,7 +91,8 @@ class AppHelper
         if (Yii::$app instanceof Application) {
             return false;
         }
-        return strpos(Yii::$app->request->pathInfo, '.com/admin') !== false || strpos(Yii::$app->request->pathInfo, '.ru/admin') !== false;
+        return strpos(Yii::$app->request->pathInfo, '.com/admin') !== false || strpos(Yii::$app->request->pathInfo,
+                '.ru/admin') !== false;
     }
 
     public static function isBasicModule()

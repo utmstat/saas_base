@@ -8,16 +8,19 @@
 
 namespace app\components\widgets;
 
-
 use app\components\common\AppWidget;
 
 class FormButtonsWidget extends AppWidget
 {
     public $updateText;
+
     public $createText;
 
     public $id;
 
+    /**
+     * @inheritDoc
+     */
     public function run()
     {
         if (!$this->createText) {
@@ -34,5 +37,4 @@ class FormButtonsWidget extends AppWidget
 
         return $this->render('formButtonsWidget');
     }
-
 }

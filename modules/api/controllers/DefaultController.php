@@ -11,8 +11,6 @@ class DefaultController extends ApiController
 {
     public function actionIndex()
     {
-        $this->apiResponse->data = [
-            'version' => 1,
-        ];
+        $this->apiResponse->setMessage('test api');
     }
 }

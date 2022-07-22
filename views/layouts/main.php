@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\components\widgets\FooterWidget;
 use app\components\widgets\TopMenuWidget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -34,7 +35,7 @@ AppAsset::register($this);
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar navbar-light fixed-top',
+            'class' => 'navbar navbar-expand-md navbar-light fixed-top',
             'style' => 'background-color: #e3f2fd;'
         ],
     ]);
@@ -53,11 +54,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="float-left">&copy; UTMSTAT <?= date('Y') ?></p>
-    </div>
-</footer>
+<?= FooterWidget::widget() ?>
 
 <?php $this->endBody() ?>
 </body>
