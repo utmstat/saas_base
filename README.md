@@ -1,3 +1,3 @@
 # README #
 
-SAAS Skeleton
+SAAS template by datamonster.ru
