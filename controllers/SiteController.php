@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\components\common\AppController;
 use app\components\helpers\AppHelper;
+use app\components\helpers\DeviceDetectorHelper;
+use app\components\helpers\SeoHelper;
 use app\models\LoginForm;
 use app\models\RecoveryForm;
 use app\models\RegistrationForm;
@@ -29,13 +31,25 @@ class SiteController extends AppController
         ];
     }
 
+
     /**
      * Displays homepage.
      * @return string
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (AppHelper::isGuest()) {
+            SeoHelper::setTitle(Yii::$app->name);
+            SeoHelper::setDescription('SAAS Service description');
+            if (DeviceDetectorHelper::isMobile()) {
+                $view = 'landing/mobile';
+            } else {
+                $view = 'landing/desktop';
+            }
+        } else {
+            $view = 'index';
+        }
+        return $this->render($view);
     }
 
 

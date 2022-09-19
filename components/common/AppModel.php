@@ -312,4 +312,17 @@ class AppModel extends ActiveRecord
 
         return $result;
     }
+
+    /**
+     * @return string[]
+     * @throws InvalidConfigException
+     */
+    public static function getList()
+    {
+        return static::find()
+            ->orderBy(['name' => SORT_ASC])
+            ->select(['name', 'id'])
+            ->indexBy('id')
+            ->column();
+    }
 }

@@ -16,6 +16,12 @@ class ImageHelper
 {
     const WEB_ROOT = '/images/resized';
 
+    /**
+     * Get cached image, resized to desired height
+     * @param string $url
+     * @param int $height
+     * @return string|null
+     */
     public static function getResizeToHeight($url, $height)
     {
         $result = null;
@@ -33,7 +39,7 @@ class ImageHelper
             if (!file_exists($filename)) {
                 try {
                     $simpleImage = new SimpleImage($url);
-                    $simpleImage->fitToHeight($height)->toFile($filename);
+                    $simpleImage->resize(null, $height)->toFile($filename);
                 } catch (\Exception $e) {
                     Yii::error($e->getMessage(), __METHOD__);
 
@@ -47,6 +53,13 @@ class ImageHelper
         return $result;
     }
 
+    /**
+     * Get cached image, resized to desired width
+     * @param string $url
+     * @param $width
+     * @param bool $forceJpg
+     * @return string|null
+     */
     public static function getResizeToWidth($url, $width, $forceJpg = true)
     {
         $result = null;
@@ -148,5 +161,10 @@ class ImageHelper
         FileHelper::createDirectory(dirname($filename));
         $simpleImage = new SimpleImage($url);
         $simpleImage->toFile($filename);
+    }
+
+    public static function getLogoFilename()
+    {
+        return Yii::getAlias('@app') . '/web/images/logo.png';
     }
 }

@@ -15,7 +15,7 @@ class IndexActionTest extends AppCodeceptionUnit
      */
     protected $tester;
 
-    public function testEvents()
+    public function testCommon()
     {
         $I = $this->tester;
         $I->sendPost('/');

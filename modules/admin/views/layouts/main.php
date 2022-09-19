@@ -29,41 +29,39 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-light fixed-top',
-            'style' => 'background-color: #e3f2fd;'
-        ],
-    ]);
-    ?>
-    <?php echo TopMenuWidget::widget() ?>
+<?php
+NavBar::begin([
+    'brandLabel' => Yii::$app->name,
+    'brandUrl' => Yii::$app->homeUrl,
+    'options' => [
+        'class' => 'navbar navbar-expand-md navbar-light sticky-top',
+        'style' => 'background-color: #e3f2fd;'
+    ],
+]);
+?>
+<?php echo TopMenuWidget::widget() ?>
 
-    <?php if (!Yii::$app->user->isGuest) : ?>
-        <div class="navbar-nav ml-auto">
-            <?php
-            echo Html::beginForm(['/logout'], 'post')
-                . Html::submitButton('Выйти (' . Yii::$app->user->identity->email . ')',
-                    ['class' => 'btn btn-link logout'])
-                . Html::endForm();
-            ?>
-        </div>
-    <?php endif; ?>
-
-    <?php NavBar::end(); ?>
-
-    <div class="container-fluid">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-
-        <?= JsVarsWidget::widget() ?>
-
-        <?= $content ?>
+<?php if (!Yii::$app->user->isGuest) : ?>
+    <div class="navbar-nav ml-auto">
+        <?php
+        echo Html::beginForm(['/logout'], 'post')
+            . Html::submitButton('Выйти (' . Yii::$app->user->identity->email . ')',
+                ['class' => 'btn btn-link logout'])
+            . Html::endForm();
+        ?>
     </div>
+<?php endif; ?>
+
+<?php NavBar::end(); ?>
+
+<div class="container-fluid pt-2">
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+
+    <?= JsVarsWidget::widget() ?>
+
+    <?= $content ?>
 </div>
 
 <?= FooterWidget::widget() ?>

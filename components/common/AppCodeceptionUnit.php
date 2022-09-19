@@ -12,6 +12,7 @@ use app\components\Cache;
 use app\components\helpers\TestHelper;
 use app\models\Log;
 use Codeception\Test\Unit;
+use Codeception\Util\HttpCode;
 use Yii;
 
 /**
@@ -41,4 +42,32 @@ class AppCodeceptionUnit extends Unit
         }
     }
 
+    /**
+     * Authenticate a user
+     * @param string $email
+     * @param string $password
+     */
+    protected function login($email, $password)
+    {
+        $I = $this->tester;
+
+        $fields = [
+            'LoginForm[email]' => $email,
+            'LoginForm[password]' => $password
+        ];
+
+        $I->amOnPage('/login/');
+        $I->seeResponseCodeIs(HttpCode::OK);
+        $I->submitForm('#login-form', $fields);
+    }
+
+    /**
+     * Logout
+     */
+    protected function logout()
+    {
+        $I = $this->tester;
+        $I->amOnPage('/logout/');
+//        $I->seeResponseCodeIs(HttpCode::OK);
+    }
 }

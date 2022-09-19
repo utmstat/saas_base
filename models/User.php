@@ -4,6 +4,7 @@ namespace app\models;
 
 use app\components\common\AppModel;
 use app\components\helpers\ArrayHelper;
+use app\components\Logger;
 use Exception;
 use RuntimeException;
 use Yii;
@@ -249,6 +250,11 @@ class User extends AppModel implements IdentityInterface
 
     public function initAfterRegister()
     {
-        // init stuff
+        $project = new Project();
+        $project->user_id = $this->id;
+        $project->name = 'Проект 1';
+        if (!$project->save()) {
+            Logger::logModelErrors($project);
+        }
     }
 }
