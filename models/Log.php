@@ -51,4 +51,17 @@ class Log extends AppModel
             'message' => 'Message',
         ];
     }
+
+    public function findDebug()
+    {
+        if($this->level == 4) {
+            return null;
+        }
+
+        return self::find()
+            ->andWhere(['id' => $this->id + 1])
+            ->andWhere(['level' => 4])
+            ->andWhere(['category' => 'application'])
+            ->one();
+    }
 }

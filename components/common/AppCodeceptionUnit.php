@@ -11,6 +11,8 @@ namespace app\components\common;
 use app\components\Cache;
 use app\components\helpers\TestHelper;
 use app\models\Log;
+use app\models\Project;
+use app\models\User;
 use Codeception\Test\Unit;
 use Codeception\Util\HttpCode;
 use Yii;
@@ -23,10 +25,28 @@ class AppCodeceptionUnit extends Unit
 {
     protected $userId = 6;
 
+    protected $userEmail;
+
+    protected $userPassword;
+
+    /* @var User */
+    protected $user;
+
+    /* @var Project */
+    protected $project;
+
     protected function _before()
     {
         $this->clearData();
         parent::_before();
+    }
+
+    protected function init()
+    {
+        $project = Project::findOne($this->projectId);
+        $user = User::findOne($this->userId);
+        $this->user = $user;
+        $this->project = $project;
     }
 
     protected function clearData()

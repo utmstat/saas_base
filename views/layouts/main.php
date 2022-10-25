@@ -5,7 +5,9 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\components\widgets\FlashWidget;
 use app\components\widgets\FooterWidget;
+use app\components\widgets\SeoWidget;
 use app\components\widgets\TopMenuWidget;
 use yii\helpers\Html;
 use yii\web\View;
@@ -19,11 +21,8 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= SeoWidget::widget(['externalView' => $this]) ?>
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -49,7 +48,7 @@ AppAsset::register($this);
         ]) ?>
 
         <?= JsVarsWidget::widget() ?>
-
+        <?= FlashWidget::widget() ?>
         <?= $content ?>
     </div>
 </div>

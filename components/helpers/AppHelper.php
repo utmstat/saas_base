@@ -32,6 +32,16 @@ class AppHelper
         return 'http://' . Yii::$app->request->hostName;
     }
 
+    public static function getProdApiHost()
+    {
+        return 'https://api.' . Yii::$app->request->hostName;
+    }
+
+    public static function getDevApiHost()
+    {
+        return 'http://api.' . Yii::$app->request->hostName;
+    }
+
     /**
      * @return string
      */
@@ -160,9 +170,14 @@ class AppHelper
 
     public static function getApiHost()
     {
-        $result = 'http://api.saas.ru/';
-        $result = trim($result, '/');
-        return $result;
+        if (Yii::$app->params['apiHost']) {
+            $result = Yii::$app->params['apiHost'];
+        } elseif (AppHelper::isProd()) {
+            $result = self::getProdApiHost();
+        } else {
+            $result = self::getDevApiHost();
+        }
+        return trim($result, '/');
     }
 
     public static function generateCallTrace()

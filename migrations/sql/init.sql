@@ -33,7 +33,7 @@ CREATE TABLE `project`
     UNIQUE KEY `idx_uniqe_un` (`user_id`,`name`),
     KEY          `fk_projects_user1_idx` (`user_id`),
     CONSTRAINT `fk_projects_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log`

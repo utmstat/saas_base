@@ -1,6 +1,7 @@
 <?php
 
-$debug = $_SERVER['HTTP_HOST'] === 'dev.saas.ru';
+$params = require __DIR__ . '/../config/params.php';
+$debug = in_array($_SERVER['HTTP_HOST'], $params['devHosts']);
 
 defined('YII_DEBUG') or define('YII_DEBUG', $debug);
 defined('YII_ENV') or define('YII_ENV', 'dev');

@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'isProduction' => true,
+    'apiHost'     => '',
+    'devHosts' => [
+        'dev.saas.ru'
+    ],
     'ticketEmail' => 'admin@example.com',
     'senderEmail' => 'noreply@example.com',
     'senderName' => 'Example.com mailer',

@@ -43,7 +43,7 @@ class StaticCache
     public static function get($method, $data)
     {
         $idx = self::getIndex($method, $data);
-        return ArrayHelper::getValue(self::$cache, $idx, false);
+        return ArrayHelper::getValue(self::$cache, $idx);
     }
 
     public static function flush()
