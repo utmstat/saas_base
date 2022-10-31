@@ -9,7 +9,7 @@ chmod -R 777 web/images
 ./yii migrate --interactive=0
 ./yii minify
 rm -rf runtime/*
-sudo composer update -vvv
+sudo composer install -vvv
 #sudo ps aux | grep webhooks-raw-data-buffer/process | awk '{print $2}' | xargs kill -9
 chmod -R 777 web/images
 ./yii deploy/post-processing
