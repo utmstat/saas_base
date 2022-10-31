@@ -68,27 +68,24 @@ $config = [
     ],
     'container' => [
         'definitions' => [
-            \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
+            yii\widgets\LinkPager::class => yii\bootstrap4\LinkPager::class,
         ],
     ],
     'modules' => [
         'api' => [
-            'id' => 'api',
             'class' => app\modules\api\Module::class,
         ],
         'support' => [
-            'id' => 'support',
             'class' => app\modules\support\Module::class,
         ],
         'admin' => [
-            'id' => 'admin',
             'class' => app\modules\admin\Module::class,
         ],
     ],
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+if (YII_DEBUG) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
