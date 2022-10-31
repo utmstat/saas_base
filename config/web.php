@@ -66,6 +66,11 @@ $config = [
             'rules' => $rules,
         ],
     ],
+    'container' => [
+        'definitions' => [
+            \yii\widgets\LinkPager::class => \yii\bootstrap4\LinkPager::class,
+        ],
+    ],
     'modules' => [
         'api' => [
             'id' => 'api',
