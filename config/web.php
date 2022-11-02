@@ -29,17 +29,17 @@ $config = [
             'cookieValidationKey' => 'DFIKxAXsU0wwUNK8KmxZ_BXhdmx-_CSV',
         ],
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => yii\caching\FileCache::class,
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => app\models\User::class,
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
+            'class' => yii\swiftmailer\Mailer::class,
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
@@ -48,7 +48,7 @@ $config = [
         'log' => [
             'targets' => [
                 [
-                    'class' => 'yii\log\DbTarget',
+                    'class' => yii\log\DbTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
@@ -59,7 +59,7 @@ $config = [
             'showScriptName' => false,
             'suffix' => '/',
             'normalizer' => [
-                'class' => 'yii\web\UrlNormalizer',
+                'class' => yii\web\UrlNormalizer::class,
                 'normalizeTrailingSlash' => true,
                 'collapseSlashes' => true,
             ],
@@ -89,14 +89,14 @@ if (YII_DEBUG) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
+        'class' => yii\debug\Module::class,
         // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.1'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
+        'class' => yii\gii\Module::class,
         // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.1'],
     ];
