@@ -2,6 +2,12 @@
 
 namespace app\components\helpers;
 
+use app\components\Cache;
+use app\models\ApiError;
+use app\models\Integration;
+use app\models\Log;
+use app\models\Webhook;
+use app\models\WebhookQueue;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\FileHelper;
@@ -40,5 +46,18 @@ class TestHelper
         }
 
         return $result;
+    }
+
+    public static function clearData($userId, $projectId)
+    {
+        Log::deleteAll();
+
+        $log = Yii::getAlias('@app') . '/runtime/logs/logger.log';
+        if (file_exists($log)) {
+            unlink($log);
+        }
+
+        Yii::$app->cache->flush();
+        Cache::flush();
     }
 }

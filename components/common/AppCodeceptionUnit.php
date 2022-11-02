@@ -8,14 +8,11 @@
 
 namespace app\components\common;
 
-use app\components\Cache;
 use app\components\helpers\TestHelper;
-use app\models\Log;
 use app\models\Project;
 use app\models\User;
 use Codeception\Test\Unit;
 use Codeception\Util\HttpCode;
-use Yii;
 
 /**
  * Class AppCodeceptionUnit
@@ -23,10 +20,16 @@ use Yii;
  */
 class AppCodeceptionUnit extends Unit
 {
-    protected $userId = 6;
+    /* @var int */
+    protected $userId;
 
+    /* @var int */
+    protected $projectId;
+
+    /* @var string */
     protected $userEmail;
 
+    /* @var string */
     protected $userPassword;
 
     /* @var User */
@@ -37,29 +40,16 @@ class AppCodeceptionUnit extends Unit
 
     protected function _before()
     {
-        $this->clearData();
+        $this->init();
         parent::_before();
     }
 
     protected function init()
     {
-        $project = Project::findOne($this->projectId);
-        $user = User::findOne($this->userId);
-        $this->user = $user;
-        $this->project = $project;
-    }
-
-    protected function clearData()
-    {
+        $this->user = User::findOne($this->userId);
+        $this->project = Project::findOne($this->projectId);
         TestHelper::initFixtures();
-        Yii::$app->cache->flush();
-        Cache::flush();
-        Log::deleteAll();
-
-        $log = Yii::getAlias('@app') . '/runtime/logs/logger.log';
-        if (file_exists($log)) {
-            unlink($log);
-        }
+        TestHelper::clearData($this->userId, $this->projectId);
     }
 
     /**

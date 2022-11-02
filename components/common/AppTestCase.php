@@ -8,8 +8,8 @@
 
 namespace app\components\common;
 
-use app\components\Cache;
 use app\components\helpers\TestHelper;
+use app\models\Project;
 use app\models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -18,22 +18,29 @@ use Yii;
 
 class AppTestCase extends TestCase
 {
-    protected $appPath;
-    protected $projectId;
-    protected $userId;
-    protected $front_url;
-    protected $api_url;
-    protected $api_token;
+    /* @var int */
+    protected $projectId = 2;
+
+    /* @var int */
+    protected $userId = 2;
+
+    /* @var User */
+    protected $user;
+
+    /* @var Project */
+    protected $project;
+
+    /* @var string  */
     protected $lastResponse;
+
+    /* @var int */
     protected $lastHttpCode;
+
+    /* @var bool */
     protected $guestMode = false;
 
     const TEST_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.112 Safari/537.36 Vivaldi/1.91.867.46';
 
-    /**
-     * @var User
-     */
-    protected $user;
 
     protected function getClient()
     {
@@ -72,8 +79,7 @@ class AppTestCase extends TestCase
 
     private function getApiToken()
     {
-        $model = User::find()->one();
-        return $model->getApiToken();
+        return $this->user->access_token;
     }
 
     protected function initUser($userId = null)
@@ -95,18 +101,10 @@ class AppTestCase extends TestCase
 
     public function setUp(): void
     {
+        $this->user = User::findOne($this->userId);
+        $this->project = Project::findOne($this->projectId);
         TestHelper::initFixtures();
-
-        $this->appPath = Yii::getAlias('@app');
-
-        $log = Yii::getAlias('@app') . '/runtime/logs/logger.log';
-        if (file_exists($log)) {
-            unlink($log);
-        }
-
-        Yii::$app->cache->flush();
-        Cache::flush();
-
+        TestHelper::clearData($this->userId, $this->projectId);
         parent::setUp();
     }
 }
