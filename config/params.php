@@ -2,6 +2,7 @@
 
 return [
     'isProduction' => true,
+    'host' => '',
     'apiHost'     => '',
     'devHosts' => [
         'dev.saas.ru'

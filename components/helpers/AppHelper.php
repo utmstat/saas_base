@@ -47,11 +47,14 @@ class AppHelper
      */
     public static function getFrontHost()
     {
-        if (self::isProd()) {
-            return self::getProdHost();
+        if (Yii::$app->params['host']) {
+            $result = Yii::$app->params['host'];
+        } elseif (self::isProd()) {
+            $result = self::getProdHost();
+        } else {
+            $result =  self::getDevHost();
         }
-
-        return self::getDevHost();
+        return $result;
     }
 
     /**
