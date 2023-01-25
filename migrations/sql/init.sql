@@ -11,6 +11,7 @@ CREATE TABLE `user`
     `last_name`        varchar(45) CHARACTER SET utf8mb4 DEFAULT NULL,
     `balance_prev`     decimal(10, 2)                    DEFAULT '0.00',
     `balance`          decimal(10, 2)                    DEFAULT '0.00',
+    `customer_id`      int(10) unsigned,
     `password_hash`    varchar(60)                       NOT NULL,
     `auth_key`         varchar(32)                       NOT NULL,
     `access_token`     varchar(32)                       DEFAULT NULL,

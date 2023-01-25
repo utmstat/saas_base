@@ -57,6 +57,18 @@ class AppHelper
         return $result;
     }
 
+    public static function getStaticHost()
+    {
+        if (Yii::$app->params['staticHost']) {
+            $result = Yii::$app->params['staticHost'];
+        } elseif (self::isProd()) {
+            $result = 'https://static.' . Yii::$app->request->hostName;
+        } else {
+            $result =  self::getDevHost();
+        }
+        return $result;
+    }
+
     /**
      * @param int $id
      * @return bool

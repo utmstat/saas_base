@@ -22,28 +22,28 @@ class Module extends \yii\base\Module
 
     public function behaviors()
     {
-        return [
-            'authenticator' => [
-                'class' => CompositeAuth::class,
-                'authMethods' => [
-                    HttpBasicAuth::class,
-                    HttpBearerAuth::class,
-                    QueryParamAuth::class,
-                ],
-                'except' => [
-                    'default/index',
-                ],
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => CompositeAuth::class,
+            'authMethods' => [
+                HttpBasicAuth::class,
+                HttpBearerAuth::class,
+                QueryParamAuth::class,
             ],
-            'contentNegotiator' => [
-                'class' => ContentNegotiator::class,
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                    'text/html' => Response::FORMAT_JSON,
-                    'text/plain' => Response::FORMAT_JSON,
-                    'application/octet-stream' => Response::FORMAT_JSON,
-                ]
+            'except' => [
+                'default/index',
+            ],
+        ];
+        $behaviors['contentNegotiator'] = [
+            'class' => ContentNegotiator::class,
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+                'text/html' => Response::FORMAT_JSON,
+                'text/plain' => Response::FORMAT_JSON,
+                'application/octet-stream' => Response::FORMAT_JSON,
             ]
         ];
+        return $behaviors;
     }
 
     /**

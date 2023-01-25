@@ -3,11 +3,7 @@
 namespace app\components\helpers;
 
 use app\components\Cache;
-use app\models\ApiError;
-use app\models\Integration;
 use app\models\Log;
-use app\models\Webhook;
-use app\models\WebhookQueue;
 use Yii;
 use yii\base\Exception;
 use yii\helpers\FileHelper;

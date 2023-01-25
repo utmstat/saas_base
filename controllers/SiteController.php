@@ -177,14 +177,4 @@ class SiteController extends AppController
         Yii::$app->user->logout();
         return $this->goHome();
     }
-
-    /**
-     * Perform a check
-     * @return string
-     */
-    public function actionCheck()
-    {
-        AppHelper::check();
-        die("ok");
-    }
 }

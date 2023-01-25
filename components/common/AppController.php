@@ -10,6 +10,7 @@ namespace app\components\common;
 
 use app\models\Project;
 use app\models\User;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -73,4 +74,20 @@ class AppController extends Controller
         $this->userId = $user->id ?? null;
         parent::init();
     }
+
+    private function loginByToken()
+    {
+        if (Yii::$app->user->isGuest) {
+            $token = Yii::$app->request->get('access-token');
+            if ($token) {
+                $identity = User::findIdentityByAccessToken($token);
+                if ($identity) {
+                    Yii::$app->getUser()->login($identity);
+                } else {
+                    Yii::error('Identity not found for access-token ' . $token, __METHOD__);
+                }
+            }
+        }
+    }
+
 }

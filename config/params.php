@@ -3,7 +3,8 @@
 return [
     'isProduction' => true,
     'host' => '',
-    'apiHost'     => '',
+    'apiHost' => '',
+    'staticHost' => '',
     'devHosts' => [
         'dev.saas.ru'
     ],
@@ -21,5 +22,6 @@ return [
     'supportEmail' => [
         'support@example.com'
     ],
+    'credentials' => require(__DIR__ . '/credentials.php'),
     'testCredentials' => require(__DIR__ . '/test_credentials.php')
 ];

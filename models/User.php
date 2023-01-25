@@ -24,6 +24,7 @@ use yii\web\IdentityInterface;
  * @property string|null $last_name
  * @property string $balance_prev
  * @property string $balance
+ * @property int|null $customer_id
  * @property string $access_token
  * @property string $recovery_token
  * @property int $recovery_sent_at
@@ -38,6 +39,8 @@ class User extends AppModel implements IdentityInterface
 
     private static $cachedCurrentUser;
 
+    public const COOKIE_OWNER_NAME = 'owner_user_id';
+
     /**
      * @inheritdoc
      */
@@ -51,7 +54,7 @@ class User extends AppModel implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new Exception('"findIdentityByAccessToken" is not implemented.');
+        return self::find()->active()->andWhere(['access_token' => $token])->one();
     }
 
     /**
@@ -115,7 +118,7 @@ class User extends AppModel implements IdentityInterface
     public function rules()
     {
         return [
-            [['is_active', 'created_at', 'updated_at', 'recovery_sent_at',], 'integer'],
+            [['is_active', 'created_at', 'updated_at', 'recovery_sent_at', 'customer_id'], 'integer'],
             [['phone', 'email', 'created_at', 'updated_at'], 'required'],
             [['email'], 'email'],
             [
@@ -145,6 +148,7 @@ class User extends AppModel implements IdentityInterface
 
         if ($this->isNewRecord) {
             $this->auth_key = Yii::$app->security->generateRandomString();
+            $this->access_token = Yii::$app->security->generateRandomString();
         }
 
         if (!empty($this->password)) {
