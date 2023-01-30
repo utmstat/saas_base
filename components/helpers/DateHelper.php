@@ -356,20 +356,22 @@ class DateHelper
     {
         if (!$ts) {
             $ts = time();
+        } elseif (!is_numeric($ts)) {
+            $ts = strtotime($ts);
         }
 
-        $lastday = date('t', $ts);
+        $lastDay = date('t', $ts);
         $dateInfo = getdate($ts);
-        return strtotime($dateInfo['year'] . '-' . $dateInfo['mon'] . '-' . $lastday . ' 23:59:59');
+        return strtotime($dateInfo['year'] . '-' . $dateInfo['mon'] . '-' . $lastDay . ' 23:59:59');
     }
 
     public static function getPrevWeekDates($index)
     {
         $d = strtotime("+" . $index . " week -1 day");
-        $start_week = strtotime("last monday midnight", $d);
-        $end_week = strtotime("next sunday", $d);
-        $start = strtotime(date("Y-m-d", $start_week));
-        $end = strtotime(date("Y-m-d", $end_week));
+        $startWeek = strtotime("last monday midnight", $d);
+        $endWeek = strtotime("next sunday", $d);
+        $start = strtotime(date("Y-m-d", $startWeek));
+        $end = strtotime(date("Y-m-d", $endWeek));
 
         return [
             'from' => self::formatAsFrom($start),
@@ -487,32 +489,42 @@ class DateHelper
 
     public static function formatTimeString($timeStamp)
     {
-        $str_time = date("Y-m-d H:i:sP", $timeStamp);
-        $time = strtotime($str_time);
-        $d = new DateTime($str_time);
+        $strTime = date("Y-m-d H:i:sP", $timeStamp);
+        $time = strtotime($strTime);
+        $date = new DateTime($strTime);
 
         $weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вск'];
         $months = ['Янв', 'Фев', 'Мар', 'Апр', ' Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
 
         if ($time > strtotime('-2 minutes')) {
             return 'Только что';
-        } elseif ($time > strtotime('-59 minutes')) {
-            $min_diff = floor((strtotime('now') - $time) / 60);
-            return $min_diff . ' мин' . (($min_diff != 1) ? "" : "") . ' назад';
-        } elseif ($time > strtotime('-23 hours')) {
-            $hour_diff = floor((strtotime('now') - $time) / (60 * 60));
-            return $hour_diff . ' час' . (($hour_diff != 1) ? "а" : "") . ' назад';
-        } elseif ($time > strtotime('today')) {
-            return $d->format('G:i');
-        } elseif ($time > strtotime('yesterday')) {
-            return 'Вчера в ' . $d->format('G:i');
-        } elseif ($time > strtotime('на этой неделе')) {
-            return $weekDays[$d->format('N') - 1] . ' в ' . $d->format('G:i');
-        } else {
-            return $d->format('j') . ' ' . $months[$d->format('n') - 1] .
-                (($d->format('Y') != date("Y")) ? $d->format(' Y') : "") .
-                ' at ' . $d->format('G:i');
         }
+
+        if ($time > strtotime('-59 minutes')) {
+            $minDiff = floor((time() - $time) / 60);
+            return $minDiff . ' мин' . (($minDiff != 1) ? "" : "") . ' назад';
+        }
+
+        if ($time > strtotime('-23 hours')) {
+            $hourDiff = floor((time() - $time) / (60 * 60));
+            return $hourDiff . ' час' . (($hourDiff != 1) ? "а" : "") . ' назад';
+        }
+
+        if ($time > strtotime('today')) {
+            return $date->format('G:i');
+        }
+
+        if ($time > strtotime('yesterday')) {
+            return 'Вчера в ' . $date->format('G:i');
+        }
+
+        if ($time > strtotime('на этой неделе')) {
+            return $weekDays[$date->format('N') - 1] . ' в ' . $date->format('G:i');
+        }
+
+        return $date->format('j') . ' ' . $months[$date->format('n') - 1] .
+            (($date->format('Y') != date("Y")) ? $date->format(' Y') : "") .
+            ' at ' . $date->format('G:i');
     }
 
     public static function getDayOfMonth($ts = null)
