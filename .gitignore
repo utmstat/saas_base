@@ -45,5 +45,5 @@ tests/api.suite.yml
 tests/front.suite.yml
 
 # local files
-tmp
-log
+/tmp
+/log
