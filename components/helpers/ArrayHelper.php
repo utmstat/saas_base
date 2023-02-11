@@ -8,14 +8,16 @@
 
 namespace app\components\helpers;
 
-/**
- * Class ArrayHelper
- * @package app\components\helpers
- */
 class ArrayHelper extends \yii\helpers\ArrayHelper
 {
 
-    public static function dropDownDownListFormat($array, $keyField, $valueField)
+    /**
+     * @param array $array
+     * @param string $keyField
+     * @param mixed $valueField
+     * @return array
+     */
+    public static function dropDownDownListFormat(array $array, $keyField, $valueField)
     {
         $result = [];
         foreach ($array as $value) {
@@ -28,7 +30,13 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function addDropDownEmptyValue($array, $title = 'Неважно', $nullIndex = null)
+    /**
+     * @param array $array
+     * @param string $title
+     * @param mixed $nullIndex
+     * @return array
+     */
+    public static function addDropDownEmptyValue(array $array, $title = 'Неважно', $nullIndex = null)
     {
         $result = [];
         $result[$nullIndex] = $title;
@@ -38,7 +46,12 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function getMaxValue($rows, $key)
+    /**
+     * @param array $rows
+     * @param mixed $key
+     * @return float|mixed|null
+     */
+    public static function getMaxValue(array $rows, $key)
     {
         $max = null;
 
@@ -54,7 +67,11 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $max;
     }
 
-    public static function getMaxSubValue($rows)
+    /**
+     * @param array $rows
+     * @return mixed
+     */
+    public static function getMaxSubValue(array $rows)
     {
         $max = null;
 
@@ -69,7 +86,13 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $max;
     }
 
-    public static function getItemByField($array, $field, $value)
+    /**
+     * @param array $array
+     * @param mixed $field
+     * @param mixed $value
+     * @return mixed
+     */
+    public static function getItemByField(array $array, $field, $value)
     {
         $result = null;
 
@@ -83,7 +106,12 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function getSumValue($rows, $key)
+    /**
+     * @param array $rows
+     * @param mixed $key
+     * @return int
+     */
+    public static function getSumValue(array $rows, $key)
     {
         $result = 0;
         foreach ($rows as $row) {
@@ -92,7 +120,13 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function getMaxValue2($rows, $key1, $key2)
+    /**
+     * @param array $rows
+     * @param mixed $key1
+     * @param mixed $key2
+     * @return mixed
+     */
+    public static function getMaxValue2(array $rows, $key1, $key2)
     {
         $max = null;
 
@@ -108,7 +142,7 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $max;
     }
 
-    public static function getDublicateValue($array, $key)
+    public static function getDuplicateValue($array, $key)
     {
         $result = self::getValue($array, $key);
         if (is_array($result)) {
@@ -135,7 +169,12 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function splitByChunks($array, $chunkSize = 10)
+    /**
+     * @param array $array
+     * @param int $chunkSize
+     * @return array
+     */
+    public static function splitByChunks(array $array, $chunkSize = 10)
     {
         $result = [];
         for ($i = 0, $iMax = count($array); $i < $iMax; $i += $chunkSize) {
@@ -145,12 +184,12 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
     }
 
     /**
-     * Дозаполняет массив чтобы везде одинакове количество индексов
+     * Дозаполняет массив чтобы везде одинаковое количество индексов
      * @param $array
      * @param int $defaultValue
      * @return mixed
      */
-    public static function upToFill($array, $defaultValue = 0)
+    public static function upToFill(array $array, $defaultValue = 0)
     {
         $result = $array;
         $keys = [];
@@ -171,6 +210,11 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
+    /**
+     * @param int $from
+     * @param int $to
+     * @return array
+     */
     public static function fill($from, $to)
     {
         $result = [];
@@ -185,7 +229,14 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function fillByTimestamp($array, $from, $to, $value = 0)
+    /**
+     * @param $array
+     * @param int $from
+     * @param int $to
+     * @param mixed $value
+     * @return array
+     */
+    public static function fillByTimestamp(array $array, $from, $to, $value = 0)
     {
         $result = $array;
 
@@ -199,7 +250,14 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function fillByWeekTimestamp($array, $from, $to, $value = 0)
+    /**
+     * @param $array
+     * @param int $from
+     * @param int $to
+     * @param mixed $value
+     * @return array
+     */
+    public static function fillByWeekTimestamp(array $array, $from, $to, $value = 0)
     {
         $result = $array;
 
@@ -215,7 +273,14 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function fillByMonthTimestamp($array, $from, $to, $value = 0)
+    /**
+     * @param $array
+     * @param int $from
+     * @param int $to
+     * @param mixed $value
+     * @return array
+     */
+    public static function fillByMonthTimestamp(array $array, $from, $to, $value = 0)
     {
         $result = $array;
 
@@ -231,7 +296,14 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function fillByMondayTimestamp($array, $from, $to, $value = 0)
+    /**
+     * @param $array
+     * @param int $from
+     * @param int $to
+     * @param mixed $value
+     * @return array
+     */
+    public static function fillByMondayTimestamp(array $array, $from, $to, $value = 0)
     {
         $result = $array;
 
@@ -247,7 +319,14 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function fillByHourTimestamp($array, $from, $to, $value = 0)
+    /**
+     * @param $array
+     * @param int $from
+     * @param int $to
+     * @param mixed $value
+     * @return array
+     */
+    public static function fillByHourTimestamp(array $array, $from, $to, $value = 0)
     {
         $result = $array;
 
@@ -261,7 +340,13 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function fillByMonthWeeksMondayTimestamp($array, $monthTs, $value = 0)
+    /**
+     * @param array $array
+     * @param int $monthTs
+     * @param mixed $value
+     * @return array
+     */
+    public static function fillByMonthWeeksMondayTimestamp(array $array, $monthTs, $value = 0)
     {
         $result = $array;
         $fts = DateHelper::getFirstDayOfMonth($monthTs);
@@ -277,6 +362,12 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
+    /**
+     * @param array $array
+     * @param int $weekMondayTs
+     * @param mixed $value
+     * @return array
+     */
     public static function fillByWeekDaysTimestamp($array, $weekMondayTs, $value = 0)
     {
         $result = $array;
@@ -288,7 +379,12 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function unsetKeys($array, $keys)
+    /**
+     * @param array $array
+     * @param array $keys
+     * @return array
+     */
+    public static function unsetKeys(array $array, array $keys)
     {
         foreach ($keys as $key) {
             if (isset($array[$key])) {
@@ -343,25 +439,28 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function groupAndNoCountItems($array)
+    /**
+     * @param array $array
+     * @return array
+     */
+    public static function groupAndNoCountItems(array $array)
     {
         $result = [];
 
         foreach ($array as $key => $item) {
-            if (!$key || $array[$key - 1] != $item)
+            if (!$key || $array[$key - 1] != $item) {
                 $result[] = $item;
+            }
         }
 
-        /*        if (count($result) == 7 && $result[6]['title'] == 'imodern.retailcrm.ru') {
-                    var_dump($array);
-                    var_dump($result);
-                    die;
-                }
-        */
         return $result;
     }
 
-    public static function castToInt($array)
+    /**
+     * @param array $array
+     * @return array
+     */
+    public static function castToInt(array $array)
     {
         $result = [];
 
@@ -376,7 +475,11 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function removeZero($array)
+    /**
+     * @param array $array
+     * @return array
+     */
+    public static function removeZero(array $array)
     {
         foreach ($array as $key => $value) {
             if ($value == 0) {
@@ -386,23 +489,38 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $array;
     }
 
-    public static function array2csv($data, $delimiter = ';', $enclosure = '"', $escape_char = "\\")
+    /**
+     * @param array $data
+     * @param string $delimiter
+     * @param string $enclosure
+     * @param string $escapeChar
+     * @return false|string
+     */
+    public static function array2csv(array $data, $delimiter = ';', $enclosure = '"', $escapeChar = "\\")
     {
         $f = fopen('php://memory', 'rb+');
         foreach ($data as $item) {
-            fputcsv($f, $item, $delimiter, $enclosure, $escape_char);
+            fputcsv($f, $item, $delimiter, $enclosure, $escapeChar);
         }
         rewind($f);
         return stream_get_contents($f);
     }
 
-
+    /**
+     * @param string $file
+     * @param string $delimiter
+     * @return array
+     */
     public static function csv2array($file, $delimiter = ';')
     {
         return array_map('str_getcsv', file($file));
     }
 
-    public static function getSubKeys($data)
+    /**
+     * @param array $data
+     * @return array
+     */
+    public static function getSubKeys(array $data)
     {
         $result = [];
 
@@ -416,6 +534,10 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
+    /**
+     * @param mixed $obj
+     * @return array|null
+     */
     public static function objectToArray($obj)
     {
         $result = null;
@@ -425,7 +547,13 @@ class ArrayHelper extends \yii\helpers\ArrayHelper
         return $result;
     }
 
-    public static function mapNotNull($data, $keyIdx, $valueIdx)
+    /**
+     * @param array $data
+     * @param mixed $keyIdx
+     * @param mixed $valueIdx
+     * @return array
+     */
+    public static function mapNotNull(array $data, $keyIdx, $valueIdx)
     {
         $result = [];
         foreach ($data as $item) {
