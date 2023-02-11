@@ -47,3 +47,5 @@ tests/front.suite.yml
 # local files
 /tmp
 /log
+
+/web/images/resized
