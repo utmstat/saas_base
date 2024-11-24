@@ -6,7 +6,7 @@ return [
     'apiHost' => '',
     'staticHost' => '',
     'devHosts' => [
-        'dev.saas.ru'
+        'saasbase.ru'
     ],
     'ticketEmail' => 'admin@example.com',
     'senderEmail' => 'noreply@example.com',

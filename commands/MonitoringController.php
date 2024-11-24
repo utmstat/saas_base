@@ -2,10 +2,13 @@
 
 namespace app\commands;
 
+use app\components\helpers\TimerHelper;
 use app\components\Logger;
+use app\models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use yii\console\Controller;
+use yii\db\Exception;
 
 /***
  * Class MonitoringController
@@ -16,6 +19,7 @@ class MonitoringController extends Controller
     public function actionIndex()
     {
         $this->checkUrls();
+        $this->checkDb();
     }
 
     /**
@@ -46,6 +50,18 @@ class MonitoringController extends Controller
                 $msg = $url . ' - ' . $e->getMessage();
                 Logger::error($msg);
             }
+        }
+    }
+
+    private function checkDb()
+    {
+        try {
+            TimerHelper::start();
+            User::findOne(1);
+            Logger::success("db ok: " . TimerHelper::end('sec'));
+        } catch (Exception $e) {
+//            TelegramApiClient::sendCriticalMessage('db: ' . $e->getMessage());
+            Logger::error("db error");
         }
     }
 }

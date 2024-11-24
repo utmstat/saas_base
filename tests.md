@@ -1,16 +1,12 @@
-#phpunit
-```bash
-php vendor/phpunit/phpunit/phpunit --configuration=tests/phpunit/phpunit.xml --exclude-group=skip tests/phpunit/functional/
-```
-
-- php vendor/phpunit/phpunit/phpunit --configuration=tests/phpunit/phpunit.xml --exclude-group=skip tests/phpunit/functional/
-
 #codeception
 
 ```bash
-php vendor/codeception/codeception/codecept run tests/
+php vendor/bin/codecept run tests/api/Common/IndexActionTest.php --debug
+php vendor/bin/codecept run tests/front/common/IndexActionTest.php --debug
 ```
 
-- php vendor/codeception/codeception/codecept run tests/api/
-    
-- php vendor/codeception/codeception/codecept run tests/front/
+#phpunit
+
+```bash
+php vendor/bin/phpunit --configuration=tests/phpunit/phpunit.xml tests/phpunit/functional/MonitoringTest.php --debug
+```

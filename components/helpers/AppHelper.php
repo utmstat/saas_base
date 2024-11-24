@@ -154,16 +154,6 @@ class AppHelper
         return User::getCurrentUser();
     }
 
-    public static function addDropDownEmptyValue($array, $nullIndex = null)
-    {
-        $result = [];
-        $result[$nullIndex] = 'Неважно';
-        foreach ($array as $key => $value) {
-            $result[$key] = $value;
-        }
-        return $result;
-    }
-
     public static function getModuleId()
     {
         if (Yii::$app->module) {
@@ -193,22 +183,5 @@ class AppHelper
             $result = self::getDevApiHost();
         }
         return trim($result, '/');
-    }
-
-    public static function generateCallTrace()
-    {
-        $e = new Exception();
-        $trace = explode("\n", $e->getTraceAsString());
-        // reverse array to make steps line up chronologically
-        $trace = array_reverse($trace);
-        array_shift($trace); // remove {main}
-        array_pop($trace); // remove call to this method
-        $result = array();
-
-        foreach ($trace as $item) {
-            $result[] = trim(substr($item, strpos($item, ' ')));
-        }
-
-        return $result;
     }
 }
